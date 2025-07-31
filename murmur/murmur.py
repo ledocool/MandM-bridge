@@ -5,8 +5,8 @@ from typing import Callable, List, Optional
 
 import Ice
 
-Ice.loadSlice("-I" + Ice.getSliceDir(), ["ressources/Murmur.ice"])
-import Murmur  # noqa: E402
+Ice.loadSlice("-I" + Ice.getSliceDir(), ["ressources/MumbleServer.ice"])
+import MumbleServer  # noqa: E402
 
 
 class MurmurICE:
@@ -75,7 +75,7 @@ class MurmurICE:
 
         prx = self._comm.stringToProxy(f"Meta:tcp -h {self._hostname} -p {self._port}")
 
-        self._meta_prx = Murmur.MetaPrx.checkedCast(prx)
+        self._meta_prx = MumbleServer.MetaPrx.checkedCast(prx)
         if not self._meta_prx:
             logging.critical("failed to obtain meta proxy")
             return False
@@ -97,7 +97,7 @@ class MurmurICE:
             "Callback.Client", "tcp -h 127.0.0.1"
         )
         adapter.activate()
-        server_cbs_prx = Murmur.ServerCallbackPrx.uncheckedCast(
+        server_cbs_prx = MumbleServer.ServerCallbackPrx.uncheckedCast(
             adapter.addWithUUID(self._server_cbs)
         )
         self._server.addCallback(server_cbs_prx)

@@ -3,11 +3,11 @@ from typing import Callable, List, Optional
 
 import Ice
 
-Ice.loadSlice("-I" + Ice.getSliceDir(), ["ressources/Murmur.ice"])
-import Murmur  # noqa: E402
+Ice.loadSlice("-I" + Ice.getSliceDir(), ["ressources/MumbleServer.ice"])
+import MumbleServer  # noqa: E402
 
 
-class ServerCallbacks(Murmur.ServerCallback):
+class ServerCallbacks(MumbleServer.ServerCallback):
     def __init__(self, channel_filter: Optional[List[str]]):
         self._on_msg_cb = None
         self._on_connection_cb = None
